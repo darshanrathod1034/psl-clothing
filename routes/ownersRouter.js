@@ -28,7 +28,7 @@ owner.delete('/delete', async (req, res) => {
 owner.post('/create', async (req, res) => {
   try {
     let owner = await ownerModel.find();
-    if (owner.size>=1) {
+    if (owner.length>=1) {
       return res.status(503).send('Owner is already created you are not permetted to create another one');
     } else {
       // Add logic to create a new owner
