@@ -1,0 +1,41 @@
+<%- include('./partials/header') %>
+<div class="w-full h-screen flex items-start px-20 py-20 gap-10">
+    <div class="w-[30%] flex flex-col gap-5">
+        <% user.forEach(function(product) { %> <!-- Use user instead of user.cart -->
+            <div class="rounded-md overflow-hidden border border-gray-300">
+                <div class="w-full h-52 flex items-center justify-center bg-[<%= product.bgcolor %>]">
+                    <img class="h-[12rem]" src="data:image/jpeg;base64,<%= product.image %>" alt="<%= product.name %>">
+                </div>
+                <div class="w-full flex justify-between px-5 py-4">
+                    <h3 class="text-2xl"><%= product.name %></h3>
+                    <div class="flex items-center gap-2">
+                        <a href="/cart/increase/<%= product._id %>" class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-add-line"></a>
+                        <div class="px-2 py-1 rounded-md bg-white text-black"><%= product.quantity %></div>
+                        <a href="/cart/decrease/<%= product._id %>" class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-subtract-line"></a>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between px-5 py-3">
+                    <h4 class="text-lg">Net Total</h4>
+                    <h2 class="text-lg">₹ <%= product.price * product.quantity %></h2>
+                    <h4 class="text-lg">Total Discount</h4>
+                    <h2 class="text-lg">₹ <%= product.discount * product.quantity %></h2>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    <div class="w-[70%]">
+        <h3 class="text-xl">Price Breakdown</h3>
+        <div class="px-10 mt-5">
+            <div class="flex mt-2">
+                <h4 class="w-1/3">Total MRP</h4>
+                <h4>₹ <%= user.reduce((acc, product) => acc + product.price * product.quantity, 0) %></h4>
+            </div>
+            <div class="flex mt-2">
+                <h4 class="w-1/3">Discount on MRP</h4>
+                <h4>₹ <%= user.reduce((acc, product) => acc + product.discount * product.quantity, 0) %></h4>
+            </div>
+            <div class="flex mt-2">
+                <h4 class="w-1/3">Final Amount</h4>
+                <h4>₹ <%= user.reduce((acc, product) => acc + product.price * product.quantity - product.discount * product.quantity, 0) %></h4>
+            </div>
+            

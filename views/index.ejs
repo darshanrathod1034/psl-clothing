@@ -1,0 +1,46 @@
+<%- include('./partials/header') %>
+
+<div class="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
+ 
+  <div class="w-11/12 max-w-6xl bg-white shadow-lg rounded-xl flex overflow-hidden">
+    <!-- Registration Section -->
+    <div class="w-1/2 p-10 bg-blue-50">
+      <h3 class="text-4xl font-bold mb-4 text-blue-600">Welcome to <span class="text-indigo-500">Scatch</span></h3>
+      <h4 class="text-lg font-medium text-gray-600 mb-6">Create your account</h4>
+      <form autocomplete="off" action="/users/register" method="post">
+        <input
+          class="block w-full px-4 py-2 mb-4 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-300"
+          type="text" placeholder="Full Name" name="fullname">
+        <input
+          class="block w-full px-4 py-2 mb-4 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-300"
+          type="email" placeholder="Email" name="email">
+        <input
+          class="block w-full px-4 py-2 mb-4 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-300"
+          type="password" placeholder="Password" name="password">
+        <button
+          class="w-full py-2 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-600 transition-all">
+          Create My Account
+        </button>
+      </form>
+    </div>
+
+    <!-- Login Section -->
+    <div class="w-1/2 p-10 bg-gray-50">
+      <h4 class="text-lg font-medium text-gray-600 mb-6">Login to your account</h4>
+      <form autocomplete="off" action="/users/login" method="post">
+        <input
+          class="block w-full px-4 py-2 mb-4 border rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-300"
+          type="email" placeholder="Email" name="email">
+        <input
+          class="block w-full px-4 py-2 mb-4 border rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-300"
+          type="password" placeholder="Password" name="password">
+        <button
+          class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-all">
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('./partials/footer') %>

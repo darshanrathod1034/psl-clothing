@@ -1,33 +1,22 @@
-const jwt=require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const userModel = require('../models/users-model');
-const e = require('express');
-module.exports=async (req,res,next)=>{
 
-//let decoded=jwt.verify(req.cookies.token,'highhook');
-if(!req.cookies.token){ 
-    res.flash('error','Please login first');
-    return res.redirect('/'); }
+module.exports = async (req, res, next) => {
+  // Check if the token exists in cookies
+  if (!req.cookies.token) {
+    return res.redirect('/?error=Please login first');
+  }
 
-try{
-    let decoded=jwt.verify(req.cookies.token,'highhook');
-    let user=await userModel.findOne({email:decoded.email}).select('-password');
+  try {
+    // Verify the token
+    const decoded = jwt.verify(req.cookies.token, 'highhook');
+    const user = await userModel.findOne({ email: decoded.email }).select('-password');
 
-    req.user=user;
+    // Attach the user to the request
+    req.user = user;
     next();
-
-}
-catch(error){
-    res.flash('error','Please login first');
-    return res.redirect('/');
-
-}
-
-
-
-
-
-
-
-
-
-}
+  } catch (error) {
+    // Handle errors during token verification
+    return res.redirect('/?error=Something went wrong');
+  }
+};

@@ -5,10 +5,16 @@ const userSchema=mongoose.Schema({
     fullname : String,
     email: String,
     password:String,
-    cart:{
-        type:Array,
-        default:[],
-    },
+    cart:[{
+        quantity:{
+            type:Number,
+            default:0,
+        },
+        productid:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Product',},
+        
+    }],
     
     orders:{
         type:Array,

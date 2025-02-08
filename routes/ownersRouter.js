@@ -45,5 +45,10 @@ owner.post('/create', async (req, res) => {
   }
 });
 
+owner.get('/admin', async (req, res) => { 
+
+ let success= req.flash('success');
+res.render('createproducts',{success});
+ });
 module.exports = owner;
 
