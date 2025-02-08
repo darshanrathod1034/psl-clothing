@@ -30,27 +30,35 @@ index.get('/cart/increase/:id',isloggedin, async(req, res) => {
     res.redirect('/cart');
   }
 });
-index.get('/cart/decrease/:id',isloggedin, async(req, res) => {
-  try{
+index.get('/cart/decrease/:id', isloggedin, async (req, res) => {
+  try {
     let user = await usersModel.findOne({ email: req.user.email });
+
     let cartItem = user.cart.find(item => item.productid && item.productid.toString() === req.params.id);
-    if(cartItem.quantity<=1){
+
+    if (!cartItem) {
+      req.flash('error', 'Item not found in cart');
+      return res.redirect('/cart');
+    }
+
+    if (cartItem.quantity <= 1) {
+      // Remove the item from the cart if quantity is 1 or less
       await usersModel.updateOne(
         { email: req.user.email },
         { $pull: { cart: { productid: req.params.id } } }
-      
-    );
-   // await user.save();
-    res.redirect('/cart');
+      );
 
+      return res.redirect('/cart'); // Stop execution here after deletion
     }
+
+    // Otherwise, decrease quantity
     cartItem.quantity--;
     await user.save();
+
     res.redirect('/cart');
-  }
-  catch(error){
+  } catch (error) {
     console.error(error);
-    req.flash('error','Something went wrong');
+    req.flash('error', 'Something went wrong');
     res.redirect('/cart');
   }
 });

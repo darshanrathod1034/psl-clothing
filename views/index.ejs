@@ -1,4 +1,19 @@
 <%- include('./partials/header') %>
+<% if (typeof gologin !== 'undefined' && gologin.length > 0) { %>
+  <div class="absolute bottom-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-green-500">
+      <span class="inline-block mt-1 mb-1 text-white">
+          <%= gologin %>
+      </span>
+  </div>
+<% } %>
+
+<% if (error && error.length > 0) { %>
+  <div class="absolute bottom-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-green-500">
+      <span class="inline-block mt-1 mb-1 text-white">
+          <%= success %>
+      </span>
+  </div>
+<% } %>
 
 <div class="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
  

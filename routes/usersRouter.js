@@ -34,7 +34,8 @@ user.post('/register', async (req, res) => {
 
     const token = jwt.sign({ email: user.email, id: user._id }, jwtSecret);
     res.cookie('token', token);
-    res.redirect('/login'); // Redirect to login after registration
+    req.flash('gologin', 'You ane Registered now you can login');
+    res.redirect('/'); // Redirect to login after registration
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
